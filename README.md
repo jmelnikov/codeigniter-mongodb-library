@@ -27,3 +27,5 @@ To report a problem or error, and to suggest the implementation of new features,
 
 ## Copyright & License
 Code copyright 2016-2018 by [Dmitriy Verkhoumov](https://github.com/verkhoumov). Code released under the [MIT License](https://github.com/verkhoumov/codeigniter-mongodb-library/blob/master/LICENSE).
+
+Changed functionality by [Yuriy Melnikov](https://github.com/jmelnikov) (2019). Code released under the [MIT License](https://github.com/verkhoumov/codeigniter-mongodb-library/blob/master/LICENSE).
