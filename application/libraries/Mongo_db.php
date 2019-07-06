@@ -1,5 +1,4 @@
-<?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  *  ------------------------------------------------------------------------
  *
@@ -23,6 +22,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  *
  *  ------------------------------------------------------------------------
  */
+
 # TODO #1: Get document in format gotten from database, without convertation to object or array.
 # TODO #2: updateWhere, updateAllWhere.
 # TODO #3: deleteWhere, deleteAllWhere.
@@ -185,7 +185,7 @@ Class Mongo_db
     const READ_PREFERENCE_MODE = ReadPreference::RP_PRIMARY;
     const READ_CONCERN_LEVEL = ReadConcern::LOCAL;
 
-// ------------------------------------------------------------------------
+    // ------------------------------------------------------------------------
 
     /**
      *  Library constructor. Accepts array with two arguments: config_group and config.
@@ -200,7 +200,7 @@ Class Mongo_db
      */
     function __construct(array $config = ['config_group' => '', 'config' => []])
     {
-// Check MongoDB PHP driver.
+        // Check MongoDB PHP driver.
         if (!class_exists('MongoDB\Driver\Manager')) {
             $this->error('The MongoDB PECL extension has not been installed or enabled');
         }
@@ -210,7 +210,7 @@ Class Mongo_db
         $this->connect($config);
     }
 
-// ------------------------------------------------------------------------
+    // ------------------------------------------------------------------------
 
     /**
      *  Reconnect to DB.
@@ -256,11 +256,11 @@ Class Mongo_db
     }
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-//  SELECT operation.
-//
-///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //  SELECT operation.
+    //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      *  Creates list of fields during retrieving query result.
@@ -308,16 +308,17 @@ Class Mongo_db
 
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-//  WHERE operations.
-//
-///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //  WHERE operations.
+    //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      *  List of comparison operators.
      * @see https://docs.mongodb.com/manual/reference/operator/query-comparison/
      */
+
     /**
      *  $fields equal $value ($fields = $number).
      *
@@ -924,6 +925,7 @@ Class Mongo_db
      *  Logical operators.
      * @see https://docs.mongodb.com/manual/reference/operator/query-logical/
      */
+
     /**
      *  Returns construction based on usage of $or operator.
      *
@@ -1154,6 +1156,7 @@ Class Mongo_db
      *  Element operators.
      * @see https://docs.mongodb.com/manual/reference/operator/query-element/
      */
+
     /**
      *  Returns construction based on usage of $exists operator.
      *
@@ -1268,6 +1271,7 @@ Class Mongo_db
      *  Evaluation operators.
      * @see https://docs.mongodb.com/manual/reference/operator/query-evaluation/
      */
+
     /**
      *  Returns construction based on usage of $mod operator.
      *
@@ -1326,8 +1330,7 @@ Class Mongo_db
      * @uses     ['user.name' => $this->mongo_db->regex('Dmitr(i|y)i', iU, FALSE)];
      *
      */
-    public function regex(string $regex = '', string $flags = 'i', bool $enable_start_wildcard
-    = TRUE, bool $enable_end_wildcard = TRUE)
+    public function regex(string $regex = '', string $flags = 'i', bool $enable_start_wildcard = TRUE, bool $enable_end_wildcard = TRUE)
     {
         $regex = quotemeta($regex);
 
@@ -1357,8 +1360,7 @@ Class Mongo_db
      * @param boolean $enable_end_wildcard [Should be used closing symbol $]
      * @return   $this
      */
-    public function like(string $field = '', string $regex = '', string $flags = 'i', bool $enable_start_wildcard
-    = TRUE, bool $enable_end_wildcard = TRUE): self
+    public function like(string $field = '', string $regex = '', string $flags = 'i', bool $enable_start_wildcard = TRUE, bool $enable_end_wildcard = TRUE): self
     {
         if ($field != '') {
             $this->push_where_field($field, $this->regex($regex, $flags, $enable_start_wildcard, $enable_end_wildcard));
@@ -1380,8 +1382,7 @@ Class Mongo_db
         $result = [];
 
         if (!empty($options)) {
-            if (isset($options['language']) && is_string($options['language']) && $options['language']
-                != '') {
+            if (isset($options['language']) && is_string($options['language']) && $options['language'] != '') {
                 $result['$language'] = (string)trim($options['language']);
             }
 
@@ -1524,13 +1525,17 @@ Class Mongo_db
      *
      *  In current library there is not operator implementation.
      */
+
     /**
      *  None.
      */
+
+
     /**
      *  Array operators.
      * @see https://docs.mongodb.com/manual/reference/operator/query-array/
      */
+
     /**
      *  Returns construction based on usage of $all operator.
      *
@@ -1697,6 +1702,7 @@ Class Mongo_db
      *  Bitwise operators.
      * @see https://docs.mongodb.com/manual/reference/operator/query-bitwise/
      */
+
     /**
      *  Bitwise operation constructor.
      *
@@ -1725,8 +1731,7 @@ Class Mongo_db
      * @param string $data <numeric bitmask|BinData bitmask|[<position1>, <position2>, ... ]>
      * @return  $this
      */
-    private function _where_bits(string $type = '', string $field = '', $data = '', string $method
-    = ''): self
+    private function _where_bits(string $type = '', string $field = '', $data = '', string $method = ''): self
     {
         if ($type != '' && $field != '' && $data != '') {
             $this->push_where_field($field, $this->_bits($type, $data));
@@ -1872,6 +1877,7 @@ Class Mongo_db
      *  Projection operators.
      * @see https://docs.mongodb.com/manual/reference/operator/projection/
      */
+
     /**
      *  Returns only first element of array satisfying given conditions.
      *
@@ -1939,6 +1945,7 @@ Class Mongo_db
     /**
      *  For $meta @see textScore() and textScore_sort() methods.
      */
+
     /**
      *  $slice constructor by array [x, y] or integer x.
      *
@@ -2006,11 +2013,11 @@ Class Mongo_db
 
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-//  SORT operation.
-//
-///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //  SORT operation.
+    //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      *  Checks sorting type and adapts it to MongoDB.
@@ -2080,11 +2087,11 @@ Class Mongo_db
 
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-//  LIMIT & OFFSET operations.
-//
-///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //  LIMIT & OFFSET operations.
+    //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      *  Limits query results.
@@ -2137,11 +2144,11 @@ Class Mongo_db
 
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-//  DOCUMENT editor.
-//
-///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //  DOCUMENT editor.
+    //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      *  Converts document from format gotten from database to classical array.
@@ -2183,11 +2190,11 @@ Class Mongo_db
 
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-//  DOCUMENT ID editor.
-//
-///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //  DOCUMENT ID editor.
+    //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      *  Converts document ID and returns document back.
@@ -2248,11 +2255,11 @@ Class Mongo_db
 
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-//  GET & COUNT operations.
-//
-///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //  GET & COUNT operations.
+    //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      *  Gets documents from database.
@@ -2262,8 +2269,7 @@ Class Mongo_db
      * @param bool $get_count [Do return number of found documents?]
      * @return  array|integer
      */
-    private function _get(string $collection = '', array $options = [], bool $get_count
-    = FALSE, string $method = '') // : array | int
+    private function _get(string $collection = '', array $options = [], bool $get_count = FALSE, string $method = '') // : array | int
     {
         if ($collection == '') {
             $this->error('Specify collection name to which query will be applied', $method);
@@ -2283,10 +2289,10 @@ Class Mongo_db
 
             $query = new Query($this->wheres, $options);
 
-// Get documents list.
+            // Get documents list.
             $cursor = $this->db->executeQuery($this->db_name . '.' . $collection, $query, $read_preference);
 
-// Query reset.
+            // Query reset.
             if ($this->auto_reset_query === TRUE) {
                 $this->reset_query();
             }
@@ -2350,8 +2356,7 @@ Class Mongo_db
      * @param array $options [Query options]
      * @return   array
      */
-    public function getWhere(string $collection = '', array $where = [], array $options
-    = []): array
+    public function getWhere(string $collection = '', array $where = [], array $options = []): array
     {
         return $this->where($where)->_get($collection, $options, FALSE, __METHOD__);
     }
@@ -2384,8 +2389,7 @@ Class Mongo_db
      * @param array $options [Query options]
      * @return   array
      */
-    public function getOneWhere(string $collection = '', array $where = [], array $options
-    = []): array
+    public function getOneWhere(string $collection = '', array $where = [], array $options = []): array
     {
         return $this->where($where)->_get($collection, ['limit' => 1] + $options, FALSE, __METHOD__);
     }
@@ -2410,16 +2414,17 @@ Class Mongo_db
 
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-//  INSERT, UPDATE & DELETE operations and exec.
-//
-///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //  INSERT, UPDATE & DELETE operations and exec.
+    //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      *  Field operations.
      * @see https://docs.mongodb.com/manual/reference/operator/update-field/
      */
+
     /**
      *  $fields value + $number.
      *
@@ -2730,11 +2735,13 @@ Class Mongo_db
      *  Array operations.
      * @see https://docs.mongodb.com/manual/reference/operator/update-array/
      */
+
     /**
      *  $ operation.
      *
      * @see set() method.
      */
+
     /**
      *  Adds all elements of array $data to the end of source array.
      *
@@ -3018,25 +3025,31 @@ Class Mongo_db
      *
      * @see addToSetAll() & pushAll() methods.
      */
+
     /**
      *  $slice operation.
      *
      * @see pushAll() method.
      */
+
     /**
      *  $sort operation.
      *
      * @see pushAll() method.
      */
+
     /**
      *  $position operation.
      *
      * @see pushAll() method.
      */
+
+
     /**
      *  Bitwise operation.
      * @see https://docs.mongodb.com/manual/reference/operator/update-bitwise/
      */
+
     /**
      *  Bitwise operation $bit.
      *
@@ -3070,6 +3083,7 @@ Class Mongo_db
      *  Isolation operation.
      * @see https://docs.mongodb.com/manual/reference/operator/update-isolation/
      */
+
     /**
      *  Prevents a write operation that affects multiple documents from yielding
      *  to other reads or writes once the first document is written. By using
@@ -3090,11 +3104,11 @@ Class Mongo_db
 
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-//  INSERT exec.
-//
-///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //  INSERT exec.
+    //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      *  Adds new document into database.
@@ -3120,13 +3134,13 @@ Class Mongo_db
             $insert_id = $bulk_write->insert($document);
             $write = $this->db->executeBulkWrite($this->db_name . '.' . $collection, $bulk_write, $write_concern);
 
-// Query reset.
+            // Query reset.
             if ($this->auto_reset_query === TRUE) {
                 $this->reset_query();
             }
 
             if ($write instanceof WriteResult) {
-// Returns ID generated automatically only.
+                // Returns ID generated automatically only.
                 if (isset($insert_id) && $insert_id instanceof ObjectID) {
                     $result = $insert_id->__toString();
                 } else {
@@ -3174,7 +3188,7 @@ Class Mongo_db
 
             $write = $this->db->executeBulkWrite($this->db_name . '.' . $collection, $bulk_write, $write_concern);
 
-// Query reset.
+            // Query reset.
             if ($this->auto_reset_query === TRUE) {
                 $this->reset_query();
             }
@@ -3192,11 +3206,11 @@ Class Mongo_db
 
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-//  UPDATE exec.
-//
-///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //  UPDATE exec.
+    //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      *  Updates existing document.
@@ -3205,8 +3219,7 @@ Class Mongo_db
      * @param array $options <options>
      * @return  boolean
      */
-    private function _update(string $collection = '', array $options = [], string $method
-    = ''): bool
+    private function _update(string $collection = '', array $options = [], string $method = ''): bool
     {
         if ($collection == '') {
             $this->error('Specify collection name to which query will be applied', $method);
@@ -3224,7 +3237,7 @@ Class Mongo_db
             $bulk_write->update($this->wheres, $this->updates, $options);
             $result = $this->db->executeBulkWrite($this->db_name . '.' . $collection, $bulk_write, $write_concern);
 
-// Query reset.
+            // Query reset.
             if ($this->auto_reset_query === TRUE) {
                 $this->reset_query();
             }
@@ -3280,11 +3293,11 @@ Class Mongo_db
 
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-//  DELETE exec.
-//
-///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //  DELETE exec.
+    //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      *  Deletes documents from collection.
@@ -3297,8 +3310,7 @@ Class Mongo_db
      *
      * @return  boolean
      */
-    private function _delete(string $collection = '', array $options = [], string $method
-    = ''): bool
+    private function _delete(string $collection = '', array $options = [], string $method = ''): bool
     {
         if ($collection == '') {
             $this->error('Specify collection name to which query will be applied', $method);
@@ -3315,7 +3327,7 @@ Class Mongo_db
             $bulk_write->delete($this->wheres, $options);
             $result = $this->db->executeBulkWrite($this->db_name . '.' . $collection, $bulk_write, $write_concern);
 
-// Query reset.
+            // Query reset.
             if ($this->auto_reset_query === TRUE) {
                 $this->reset_query();
             }
@@ -3369,11 +3381,11 @@ Class Mongo_db
 
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-//  COMMANDS & AGGREGATION exec.
-//
-///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //  COMMANDS & AGGREGATION exec.
+    //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      *  Executes commands and aggregations MongoDB.
@@ -3450,8 +3462,7 @@ Class Mongo_db
      * @param array $options Aggregation options
      * @return  array
      */
-    public function aggregate(string $collection = '', array $pipeline = [], array $options
-    = []): array
+    public function aggregate(string $collection = '', array $pipeline = [], array $options = []): array
     {
         if ($collection == '') {
             $this->error('Specify collection name to which query will be applied', __METHOD__);
@@ -3472,11 +3483,11 @@ Class Mongo_db
 
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-//  DATE operations.
-//
-///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //  DATE operations.
+    //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      *  Create date by MongoDB\BSON\UTCDatetime.
@@ -3518,11 +3529,11 @@ Class Mongo_db
 
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-//  OTHER DB operations.
-//
-///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //  OTHER DB operations.
+    //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      *  Changes database. Works if parameter 'connection_string' in config is not presented.
@@ -3564,11 +3575,11 @@ Class Mongo_db
 
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-//  CONNECTION CREATE methods.
-//
-///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //  CONNECTION CREATE methods.
+    //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      *  Set MongoDB configuration by priority:
@@ -3581,20 +3592,18 @@ Class Mongo_db
      */
     private function config(array $manual_config = []): self
     {
-// Config data from file /config/mongo_db.php.
+        // Config data from file /config/mongo_db.php.
         $this->CodeIgniter->load->config(self::CONFIG_FILE_NAME);
         $file_config = $this->CodeIgniter->config->item(self::CONFIG_ARRAY_NAME);
 
-// Config group name: one of some variants of a config group name.
-        if (!empty($manual_config) && isset($manual_config['config_group']) && $manual_config['config_group']
-            != '') {
+        // Config group name: one of some variants of a config group name.
+        if (!empty($manual_config) && isset($manual_config['config_group']) && $manual_config['config_group'] != '') {
             $this->config_group = $manual_config['config_group']; // 1st priority.
-        } elseif (isset($file_config['active_config_group']) && $file_config['active_config_group']
-            != '') {
+        } elseif (isset($file_config['active_config_group']) && $file_config['active_config_group'] != '') {
             $this->config_group = $file_config['active_config_group']; // 2nd priority.
         }
 
-// Config data: more priority data supplement or replace less priority.
+        // Config data: more priority data supplement or replace less priority.
         if (isset($file_config[$this->config_group]) && !empty($file_config[$this->config_group])) {
             $this->config = array_replace_recursive($this->config, $file_config[$this->config_group]); // 2nd priority.
         }
@@ -3603,7 +3612,7 @@ Class Mongo_db
             $this->config = array_replace_recursive($this->config, $manual_config['config']); // 1st priority.
         }
 
-// port & host to array
+        // port & host to array
         if (is_string($this->config['connection']['host'])) {
             $this->config['connection']['host'] = [$this->config['connection']['host']];
         }
@@ -3627,9 +3636,8 @@ Class Mongo_db
      */
     private function prepare(): self
     {
-// Or 'connection_string', or 'connection': 'connection_string' replaces all data in 'connection'.
-        if (isset($this->config['connection_string']) && $this->config['connection_string']
-            != '') {
+        // Or 'connection_string', or 'connection': 'connection_string' replaces all data in 'connection'.
+        if (isset($this->config['connection_string']) && $this->config['connection_string'] != '') {
             $this->config['connection'] = $this->parse_connection_string($this->config['connection_string']);
         }
 
@@ -3640,23 +3648,22 @@ Class Mongo_db
         /**
          *  Settings.
          */
-// Authentication status. Default: TRUE.
+        // Authentication status. Default: TRUE.
         if (isset($settings['auth']) && is_bool($settings['auth'])) {
             $this->auth = $settings['auth'];
         }
 
-// Debug mode. Default: FALSE.
+        // Debug mode. Default: FALSE.
         if (isset($settings['debug']) && is_bool($settings['debug'])) {
             $this->debug = $settings['debug'];
         }
 
-// Returnable type of data, when use get() and similar functions. Default: 'array'.
-        if (isset($settings['return_as']) && is_string($settings['return_as']) && $settings['return_as']
-            != '') {
+        // Returnable type of data, when use get() and similar functions. Default: 'array'.
+        if (isset($settings['return_as']) && is_string($settings['return_as']) && $settings['return_as'] != '') {
             $this->return_as = $settings['return_as'];
         }
 
-// Auto query resetting. Default: TRUE.
+        // Auto query resetting. Default: TRUE.
         if (isset($settings['auto_reset_query']) && is_bool($settings['auto_reset_query'])) {
             $this->auto_reset_query = $settings['auto_reset_query'];
         }
@@ -3664,46 +3671,43 @@ Class Mongo_db
         /**
          *  Connection.
          */
-// Hosts (required).
+        // Hosts (required).
         if (isset($connection['host']) && is_array($connection['host']) && !empty($connection['host'])) {
             $this->hosts = $connection['host'];
         } else {
             $this->error('Connection host is a required parameter. Type it as string or array!');
         }
 
-// Ports.
+        // Ports.
         if (isset($connection['port']) && is_array($connection['port']) && !empty($connection['port'])) {
             $this->ports = $connection['port'];
         } else {
-// This parameter can not be empty, because config constructor
-// creates an association between each host and port.
+            // This parameter can not be empty, because config constructor
+            // creates an association between each host and port.
         }
 
-// User name.
-        if (isset($connection['user_name']) && is_string($connection['user_name']) && $connection['user_name']
-            != '') {
+        // User name.
+        if (isset($connection['user_name']) && is_string($connection['user_name']) && $connection['user_name'] != '') {
             $this->user_name = trim($connection['user_name']);
         } elseif ($this->auth === TRUE) {
             $this->error('User name is a required parameter. Type it!');
         }
 
-// User password.
-        if (isset($connection['user_password']) && is_string($connection['user_password']) && $connection['user_password']
-            != '') {
+        // User password.
+        if (isset($connection['user_password']) && is_string($connection['user_password']) && $connection['user_password'] != '') {
             $this->user_password = trim($connection['user_password']);
         } elseif ($this->auth === TRUE) {
             $this->error('User password is a required parameter. Type it!');
         }
 
-// Database name.
-        if (isset($connection['db_name']) && is_string($connection['db_name']) && $connection['db_name']
-            != '') {
+        // Database name.
+        if (isset($connection['db_name']) && is_string($connection['db_name']) && $connection['db_name'] != '') {
             $this->db_name = trim($connection['db_name']);
         } elseif ($this->auth === TRUE) {
             $this->error('Database name is a required parameter. Type it!');
         }
 
-// Database options.
+        // Database options.
         if (isset($connection['db_options']) && is_array($connection['db_options']) && !empty($connection['db_options'])) {
             $this->db_options = $connection['db_options'];
         }
@@ -3728,11 +3732,11 @@ Class Mongo_db
      */
     private function parse_connection_string(string $connection = ''): array
     {
-// Connection string.
+        // Connection string.
         $connection = trim($connection);
         $connection = str_replace($this->protocol, '', $connection);
 
-// Initialize variables.
+        // Initialize variables.
         $hosts = [];
         $ports = [];
         $user_name = '';
@@ -3740,7 +3744,7 @@ Class Mongo_db
         $db_name = '';
         $db_options = [];
 
-// Extra options.
+        // Extra options.
         $sockets = [];
         $db_options_group = [];
         $host_group = [];
@@ -3748,26 +3752,26 @@ Class Mongo_db
         /**
          *  Username and password.
          */
-// Prepare $connection to $connection and $user_name if user name exist.
+        // Prepare $connection to $connection and $user_name if user name exist.
         if (strpos($connection, '@') !== FALSE) {
             list($user_name, $connection) = explode('@', $connection);
 
-// Prepare $user_name to $user_name and $user_password if password exist.
+            // Prepare $user_name to $user_name and $user_password if password exist.
             if (strpos($user_name, ':') !== FALSE) {
                 list($user_name, $user_password) = explode(':', $user_name);
             }
         }
 
-// Find and crop UNIX Domain Sockets.
+        // Find and crop UNIX Domain Sockets.
         if (preg_match_all('#\/.*\.sock,?#iU', $connection, $matches)) {
             $unix_domain_sockets = $matches[0];
 
             if (!empty($unix_domain_sockets)) {
                 foreach ($unix_domain_sockets as $id => $socket) {
-// Save socket.
+                    // Save socket.
                     $sockets[$id] = trim($socket);
 
-// Replace socket address to socket ID.
+                    // Replace socket address to socket ID.
                     $connection = str_replace($socket, $id, $connection);
                 }
             }
@@ -3776,15 +3780,15 @@ Class Mongo_db
         /**
          *  Database name and options.
          */
-// Prepare $connection to $connection and $db_name if database name exist.
+        // Prepare $connection to $connection and $db_name if database name exist.
         if (strpos($connection, '/') !== FALSE) {
             list($connection, $db_name) = explode('/', $connection);
 
-// Prepare $db_name to $db_name and $db_options if options exist.
+            // Prepare $db_name to $db_name and $db_options if options exist.
             if (strpos($db_name, '?') !== FALSE) {
                 list($db_name, $db_options) = explode('?', $db_name);
 
-// Check the availability of multiple options.
+                // Check the availability of multiple options.
                 if (strpos($db_options, '&') !== FALSE) {
                     $db_options_group = explode('&', $db_options);
                 } else {
@@ -3793,17 +3797,17 @@ Class Mongo_db
 
                 $db_options = [];
 
-// Options list.
+                // Options list.
                 foreach ($db_options_group as $option) {
-// Skip options without value.
+                    // Skip options without value.
                     if (strpos($option, '=') === FALSE) {
                         continue;
                     }
 
-// Prepare option to $key and $value.
+                    // Prepare option to $key and $value.
                     list($key, $value) = explode('=', $option);
 
-// Save option.
+                    // Save option.
                     $db_options[$key] = $value;
                 }
             }
@@ -3812,14 +3816,14 @@ Class Mongo_db
         /**
          *  Hosts and ports list.
          */
-// Hostname & port.
+        // Hostname & port.
         if (strpos($connection, ',') !== FALSE) {
             $host_group = explode(',', $connection);
         } else {
             $host_group[] = $connection;
         }
 
-// Hosts list.
+        // Hosts list.
         foreach ($host_group as $host) {
             $host = trim($host);
 
@@ -3831,18 +3835,18 @@ Class Mongo_db
                 $hosts[] = $sockets[$host];
                 $ports[] = '';
             } else {
-// Skip options without value.
+                // Skip options without value.
                 if (strpos($host, ':') === FALSE) {
                     $ports[] = '';
                 } else {
-// Prepare option to $host and $port.
+                    // Prepare option to $host and $port.
                     list($host, $port) = explode(':', $host);
 
                     if ($host == '') {
                         continue;
                     }
 
-// Save option.
+                    // Save option.
                     $ports[] = trim($port);
                 }
 
@@ -3895,9 +3899,7 @@ Class Mongo_db
             $hosts_length = count($this->hosts);
             $comma = '';
 
-            for ($i = 0;
-                 $i < $hosts_length;
-                 $i++) {
+            for ($i = 0; $i < $hosts_length; $i++) {
                 if (isset($this->hosts[$i]) && $this->hosts[$i] != '') {
                     $result .= "{$comma}{$this->hosts[$i]}";
 
@@ -3924,11 +3926,11 @@ Class Mongo_db
 
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-//  OTHER methods.
-//
-///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //  OTHER methods.
+    //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      *  It pull the first element of the array.
@@ -3973,10 +3975,10 @@ Class Mongo_db
     private function push_where_field(string $field = '', $data): self
     {
         if ($field != '' && isset($data)) {
-// Create field.
+            // Create field.
             $this->create_where_field($field);
 
-// Set data.
+            // Set data.
             if (is_array($data)) {
                 $this->wheres[$field] = array_replace_recursive($this->wheres[$field], $data);
             } else {
@@ -3987,7 +3989,7 @@ Class Mongo_db
         return $this;
     }
 
-// ------------------------------------------------------------------------
+    // ------------------------------------------------------------------------
 
     /**
      *  Add new parameters to update data.
@@ -4013,7 +4015,7 @@ Class Mongo_db
         return $this;
     }
 
-// ------------------------------------------------------------------------
+    // ------------------------------------------------------------------------
 
     /**
      *  Add new parameters to select data.
@@ -4039,7 +4041,7 @@ Class Mongo_db
         return $this;
     }
 
-// ------------------------------------------------------------------------
+    // ------------------------------------------------------------------------
 
     /**
      *  Add new parameters to sort data.
@@ -4068,11 +4070,11 @@ Class Mongo_db
 
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-//  ERROR handler.
-//
-///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //  ERROR handler.
+    //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      *  Error handler.
@@ -4083,16 +4085,38 @@ Class Mongo_db
      */
     private function error(string $text = '', string $method = '', int $code = 500): self
     {
-// Log errors only during debug.
+        // Log errors only during debug.
         if ($this->debug === TRUE) {
             $message = $text;
 
-// Show method where error occurred.
+            // Show method where error occurred.
             if ($method != '') {
                 $message = "{$method}(): $message";
             }
 
             show_error($message, $code);
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //  Additional functionality.
+    //
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     *  Create ObjectID by MongoDB\BSON\ObjectId.
+     *
+     *
+     * @param String $ObjectId [ObjectId as string]
+     * @return  ObjectId
+     */
+    public function ObjectID(String $ObjectId = null): ObjectId
+    {
+        if ($ObjectId !== null) {
+            return new ObjectId($ObjectId);
+        } else {
+            $this->error('ObjectId can\'t be empty!');
         }
     }
 }

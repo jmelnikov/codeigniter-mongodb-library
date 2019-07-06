@@ -1,5 +1,4 @@
-<?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  *  ------------------------------------------------------------------------
  *
@@ -142,6 +141,3 @@ $config['mongo_db']['default'] = [
     ],
     'driver' => []
 ];
-
-/* End of file mongo_db.php */
-/* Location: ./application/config/mongo_db.php */
